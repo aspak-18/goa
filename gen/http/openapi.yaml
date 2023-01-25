@@ -1,0 +1,65 @@
+swagger: "2.0"
+info:
+    title: ""
+    version: ""
+host: localhost:80
+consumes:
+    - application/json
+    - application/xml
+    - application/gob
+produces:
+    - application/json
+    - application/xml
+    - application/gob
+paths:
+    /{city}:
+        get:
+            tags:
+                - weather
+            summary: show weather
+            operationId: weather#show
+            parameters:
+                - name: city
+                  in: path
+                  description: Name of the city
+                  required: true
+                  type: string
+            responses:
+                "200":
+                    description: OK response.
+                    schema:
+                        $ref: '#/definitions/WeatherShowResponseBody'
+                        required:
+                            - temp
+                            - wind_speed
+                            - humidity
+            schemes:
+                - http
+definitions:
+    WeatherShowResponseBody:
+        title: WeatherShowResponseBody
+        type: object
+        properties:
+            humidity:
+                type: number
+                description: Humidity in percent
+                example: 0.925941697626779
+                format: double
+            temp:
+                type: number
+                description: Temperature in Celsius
+                example: 0.17265635007449479
+                format: double
+            wind_speed:
+                type: number
+                description: Wind speed in meters per second
+                example: 0.41835581400315336
+                format: double
+        example:
+            humidity: 0.14547656544203885
+            temp: 0.9172351096843672
+            wind_speed: 0.9934904449213595
+        required:
+            - temp
+            - wind_speed
+            - humidity
